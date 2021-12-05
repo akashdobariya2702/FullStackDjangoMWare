@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block body_content %}
+  <div class="container-md">
+    <div class="form-container p-md-4">
+      <h1 class="py-4">
+        {{title}}
+      </h1>
+      <a href="{% url 'log:list' %}" class="btn btn-success btn-sm">Go Back To list</a>
+
+      <form method="post">
+      {% csrf_token %}
+          <button class="btn btn-danger">Are you sure you want to delete - {{ object.pk }}?</button>
+      </form>
+    </div>
+  </div>
+
+{% endblock %}

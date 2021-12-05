@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block body_content %}
+  <div class="container-md">
+    <div class="form-container p-md-4">
+      <h1 class="py-4">
+        {{title}}
+      </h1>
+      <a href="{% url 'log:list' %}" class="btn btn-success btn-sm">Go Back To list</a>
+
+      <h1 class="my-2 py-2">{{ object.json_response.status_code | title}}</h1>
+      <div class="blog">
+
+        {{ object.json_response.error | safe }}
+
+      </div>
+    </div>
+  </div>
+{% endblock %}

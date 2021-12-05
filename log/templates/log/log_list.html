@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block body_content %}
+  <div class="container-md">
+    <div class="form-container p-md-4">
+      <h1 class="py-4">
+        {{title}}
+      </h1>
+
+      {% if object_list %}
+      {% csrf_token %}
+      <table class="table table-hover table-borderless table-striped">
+        <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Status Code</th>
+          <th scope="col">Error</th>
+          <th scope="col" class="text-right">Activity</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for post in object_list %}
+        <tr class="row_{{post.id}}">
+          <td class="align-middle">{{ post.id }}</td>
+          <td class="align-middle">{{ post.json_response.status_code }}</td>
+          <td class="align-middle">{{ post.json_response.error|truncatechars:100 }}</td>
+          <td class="align-middle">
+            <a href="{% url 'log:detail' post.id %}" class="btn btn-outline-secondary text-center">
+              <span>
+                <i class="fas fa-fw fa-image"></i>
+                <span class="d-none d-md-inline">Preview</span>
+              </span>
+            </a>
+            <a href="{% url 'log:update' post.id %}" class="btn btn-outline-secondary text-center">
+              <span>
+                <i class="fas fa-fw fa-edit"></i>
+                <span class="d-none d-md-inline">Edit</span>
+              </span>
+            </a>
+            <a href="{% url 'log:delete' post.id %}" class="btn btn-danger text-center">
+              <span>
+                <i class="fas fa-fw fa-trash-alt"></i>
+                <span class="d-none d-md-inline">Delete</span>
+              </span>
+            </a>
+
+          </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <p class="lead">You have no data.</p>
+      {% endif %}
+
+      <div class="row mt-4">
+        <div class="col-12 col-md text-md-right mt-4 my-md-0">
+          <a href="{% url 'log:new' %}" class="btn btn-block btn-primary text-white py-2">
+            <span>Create</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
